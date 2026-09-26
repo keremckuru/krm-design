@@ -17,7 +17,7 @@ export function HomeSlider({ projects }) {
         if (typeof window !== 'undefined' && window.innerWidth < 768) return;
         const timer = setInterval(() => {
             setIndex((i) => (i + 1) % projects.length);
-        }, 1500);
+        }, 2000);
         return () => clearInterval(timer);
     }, [projects.length]);
 

@@ -18,7 +18,7 @@ export function DesktopGallery({ images, title }) {
 
         const timer = setInterval(() => {
             setIndex((i) => (i + 1) % images.length);
-        }, 1500);
+        }, 2000);
 
         return () => clearInterval(timer);
     }, [images.length]);
