@@ -34,14 +34,12 @@ export function HomeSlider({ projects }) {
         >
             <AnimatePresence initial={false} custom={index}>
                 {projects.map((p, i) => {
-                    const diff = i - index;
-                    if (Math.abs(diff) > 2 && !(i === 0 && index === projects.length - 1) && !(i === projects.length - 1 && index === 0)) return null;
+                    const len = projects.length;
+                    let realDiff = (i - index) % len;
+                    if (realDiff > Math.floor(len / 2)) realDiff -= len;
+                    if (realDiff < -Math.floor(len / 2)) realDiff += len;
 
-                    let realDiff = diff;
-                    if (projects.length > 1) {
-                        if (i === 0 && index === projects.length - 1) realDiff = 1;
-                        if (i === projects.length - 1 && index === 0) realDiff = -1;
-                    }
+                    if (Math.abs(realDiff) > 2) return null;
 
                     const isCenter = realDiff === 0;
 
@@ -53,23 +51,25 @@ export function HomeSlider({ projects }) {
                             initial={{ opacity: 0, x: Math.sign(realDiff) * 300, scale: 0.8 }}
                             animate={{
                                 opacity: Math.abs(realDiff) > 2 ? 0 : 1,
-                                x: realDiff * 450,
-                                scale: isCenter ? 1 : 0.7,
+                                x: realDiff * 400,
+                                scale: isCenter ? 1 : 0.8,
                                 zIndex: isCenter ? 10 : 5 - Math.abs(realDiff),
                                 filter: isCenter ? 'brightness(1)' : 'brightness(0.5)'
                             }}
                             exit={{ opacity: 0, scale: 0.8 }}
                             transition={{ type: 'spring', stiffness: 200, damping: 25 }}
                             style={{
-                                position: 'absolute', top: '0', width: '45vw', maxWidth: '800px', height: '80%',
+                                position: 'absolute',
+                                height: isCenter ? '75vh' : '60vh',
+                                aspectRatio: '4/5',
                                 borderRadius: '16px', overflow: 'hidden', cursor: isCenter ? 'pointer' : 'default',
-                                boxShadow: isCenter ? '0 30px 60px rgba(0,0,0,0.2)' : '0 10px 30px rgba(0,0,0,0.1)',
+                                boxShadow: isCenter ? '0 40px 80px rgba(0,0,0,0.25)' : '0 15px 30px rgba(0,0,0,0.1)',
                                 pointerEvents: isCenter ? 'auto' : 'none',
                                 backgroundColor: 'transparent'
                             }}
                         >
                             <Link href={'/projects/' + p.slug} style={{ display: 'block', width: '100%', height: '100%' }}>
-                                <Image src={p.images[0]} fill style={{ objectFit: 'contain', background: 'transparent', borderRadius: '16px' }} alt={p.title} priority={false} sizes="50vw" />
+                                <Image src={p.images[0]} fill style={{ objectFit: 'cover', background: 'transparent' }} alt={p.title} priority={false} sizes="(max-width: 768px) 100vw, 50vw" />
                             </Link>
                         </motion.div>
                     );

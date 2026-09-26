@@ -43,14 +43,12 @@ export function DesktopGallery({ images, title }) {
         >
             <AnimatePresence initial={false} custom={index}>
                 {images.map((src, i) => {
-                    const diff = i - index;
-                    if (Math.abs(diff) > 2 && !(i === 0 && index === images.length - 1) && !(i === images.length - 1 && index === 0)) return null;
+                    const len = images.length;
+                    let realDiff = (i - index) % len;
+                    if (realDiff > Math.floor(len / 2)) realDiff -= len;
+                    if (realDiff < -Math.floor(len / 2)) realDiff += len;
 
-                    let realDiff = diff;
-                    if (images.length > 1) {
-                        if (i === 0 && index === images.length - 1) realDiff = 1;
-                        if (i === images.length - 1 && index === 0) realDiff = -1;
-                    }
+                    if (Math.abs(realDiff) > 2) return null;
 
                     const isCenter = realDiff === 0;
 
@@ -62,8 +60,8 @@ export function DesktopGallery({ images, title }) {
                             initial={{ opacity: 0, x: Math.sign(realDiff) * 300, scale: 0.8 }}
                             animate={{
                                 opacity: Math.abs(realDiff) > 1 ? 0 : 1,
-                                x: realDiff * 450,
-                                scale: isCenter ? 1 : 0.7,
+                                x: realDiff * 400,
+                                scale: isCenter ? 1 : 0.8,
                                 zIndex: isCenter ? 10 : 5 - Math.abs(realDiff),
                                 filter: isCenter ? 'brightness(1)' : 'brightness(0.5)'
                             }}
@@ -71,13 +69,12 @@ export function DesktopGallery({ images, title }) {
                             transition={{ type: 'spring', stiffness: 200, damping: 25 }}
                             style={{
                                 position: 'absolute',
-                                width: '50vw',
-                                maxWidth: '800px',
-                                height: '80%',
+                                height: isCenter ? '80vh' : '60vh',
+                                aspectRatio: '4/5',
                                 borderRadius: '16px',
                                 overflow: 'hidden',
                                 backgroundColor: 'transparent',
-                                boxShadow: isCenter ? '0 30px 60px rgba(0,0,0,0.2)' : '0 10px 30px rgba(0,0,0,0.1)',
+                                boxShadow: isCenter ? '0 40px 80px rgba(0,0,0,0.25)' : '0 15px 30px rgba(0,0,0,0.1)',
                                 cursor: isCenter ? 'default' : 'pointer'
                             }}
                             onClick={() => {
@@ -88,10 +85,10 @@ export function DesktopGallery({ images, title }) {
                             <Image
                                 src={src}
                                 fill
-                                style={{ objectFit: 'contain', background: 'transparent', borderRadius: '16px' }}
+                                style={{ objectFit: 'cover', background: 'transparent' }}
                                 alt={`${title} - slide ${i + 1}`}
                                 priority={isCenter}
-                                sizes="50vw"
+                                sizes="(max-width: 768px) 100vw, 50vw"
                             />
                         </motion.div>
                     );
