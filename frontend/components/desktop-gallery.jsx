@@ -48,8 +48,6 @@ export function DesktopGallery({ images, title }) {
                     if (realDiff > Math.floor(len / 2)) realDiff -= len;
                     if (realDiff < -Math.floor(len / 2)) realDiff += len;
 
-                    if (Math.abs(realDiff) > 2) return null;
-
                     const abs = Math.abs(realDiff);
                     const isCenter = abs === 0;
 
