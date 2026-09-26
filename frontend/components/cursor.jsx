@@ -1,9 +1,15 @@
 'use client';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 export function CustomCursor() {
-    const [mouse, setMouse] = useState({ x: -100, y: -100 });
+    const cursorX = useMotionValue(-100);
+    const cursorY = useMotionValue(-100);
+    
+    const springConfig = { damping: 35, stiffness: 700, mass: 0.1 };
+    const cursorXSpring = useSpring(cursorX, springConfig);
+    const cursorYSpring = useSpring(cursorY, springConfig);
+
     const [isHovering, setIsHovering] = useState(false);
 
     useEffect(() => {
@@ -12,14 +18,11 @@ export function CustomCursor() {
         }
 
         const update = (e) => {
-            setMouse({ x: e.clientX, y: e.clientY });
+            cursorX.set(e.clientX - 10);
+            cursorY.set(e.clientY - 10);
         };
         const handleMouseOver = (e) => {
-            if (e.target.closest('a, button, summary, input')) {
-                setIsHovering(true);
-            } else {
-                setIsHovering(false);
-            }
+            setIsHovering(!!e.target.closest('a, button, summary, input'));
         };
 
         window.addEventListener('mousemove', update);
@@ -28,16 +31,21 @@ export function CustomCursor() {
             window.removeEventListener('mousemove', update);
             window.removeEventListener('mouseover', handleMouseOver);
         };
-    }, []);
+    }, [cursorX, cursorY]);
 
     return (
         <motion.div
             className="custom-cursor"
             aria-hidden="true"
-            style={{ pointerEvents: 'none', mixBlendMode: 'difference', background: 'white', zIndex: 999999 }}
+            style={{ 
+                x: cursorXSpring, 
+                y: cursorYSpring,
+                pointerEvents: 'none', 
+                mixBlendMode: 'difference', 
+                background: 'white', 
+                zIndex: 999999 
+            }}
             animate={{
-                x: mouse.x - (isHovering ? 10 : 10),
-                y: mouse.y - (isHovering ? 10 : 10),
                 scale: isHovering ? 2.5 : 1,
             }}
             transition={{

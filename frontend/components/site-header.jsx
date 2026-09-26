@@ -36,7 +36,7 @@ export function SiteHeader() {
         </header>
         {/* Fullscreen mobile drawer */}
         <div className={`mobile-drawer-overlay ${open ? 'is-open' : ''}`} onClick={close} />
-        <aside className={`mobile-drawer ${open ? 'is-open' : ''}`} aria-hidden={!open}>
+        <aside className={`mobile-drawer ${open ? 'is-open' : ''}`} aria-hidden={!open} inert={!open ? "" : undefined}>
             <div className="mobile-drawer-header">
                 <span className="mobile-drawer-title"><T>{"Menu"}</T></span>
                 <button className="mobile-drawer-close" onClick={close} aria-label="Close menu">✕</button>
