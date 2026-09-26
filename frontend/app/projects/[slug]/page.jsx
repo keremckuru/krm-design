@@ -16,8 +16,11 @@ export default async function Project({ params }) {
 
     // We fetch EVERYTHING so we don't rely on standard APIs on the old render server
     const all = await catalog();
-    const p = all.find(item => item.slug === slug);
+    const currentIndex = all.findIndex(item => item.slug === slug);
+    const p = all[currentIndex];
     if (!p) notFound();
+    
+    const nextProject = all[(currentIndex + 1) % all.length];
 
     return (
         <main>
@@ -49,6 +52,19 @@ export default async function Project({ params }) {
                     <p><T>{p.description}</T></p>
                     {p.status === 'Concept' && <small><T>{"Independent concept. Not an official collaboration or endorsement by the featured clubs or brands."}</T></small>}
                 </div>
+            </section>
+
+            <section className="next-project-teaser">
+                <Link href={`/projects/${nextProject.slug}`} className="next-project-card">
+                    <div className="next-project-image">
+                        <img src={nextProject.images[0]} alt={nextProject.title} />
+                        <div className="next-project-overlay"></div>
+                    </div>
+                    <div className="next-project-info">
+                        <p className="eyebrow"><T>{"Next project"}</T></p>
+                        <h2>{nextProject.title}</h2>
+                    </div>
+                </Link>
             </section>
 
             <section className="closing">
