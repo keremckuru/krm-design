@@ -269,6 +269,12 @@ img {
     transform: translateY(-1px);
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .hamburger-btn {
     display: none;
     background: none;

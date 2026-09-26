@@ -24,7 +24,7 @@ export function SiteHeader() {
                 {links.slice(1, 4).map(([href, label]) => <Link key={href} href={href}><T>{label}</T></Link>)}
                 <Link href="/info"><T>{"Info"}</T></Link>
             </nav>
-            <div className="header-actions">
+            <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Link className="header-cta" href="/contact"><T>{"Start a project ↗"}</T></Link>
                 <PreferenceControls />
             </div>
