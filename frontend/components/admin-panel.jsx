@@ -115,13 +115,8 @@ export function AdminPanel() {
                 if (type === 'delete') {
                     return fetch('/api/projects', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ slug, revision: item.revision }) });
                 } else if (type === 'publish' || type === 'draft') {
-                    // We must fetch full individual project before mutating since list only has thumbnails
-                    let full = item;
-                    try {
-                        const r = await fetch('/api/portfolio/' + slug);
-                        if (r.ok) full = await r.json();
-                    } catch (e) { }
-                    return fetch('/api/projects', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...full, published: type === 'publish', originalSlug: slug }) });
+                    // Since catalog is monolithic again, item is the full object
+                    return fetch('/api/projects', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...item, published: type === 'publish', originalSlug: slug }) });
                 }
             }));
             let opMap = { publish: 'published', draft: 'set to draft', delete: 'deleted' };

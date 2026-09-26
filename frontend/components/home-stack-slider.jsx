@@ -10,7 +10,7 @@ export function HomeStackSlider({ projects }) {
     const [cards, setCards] = useState(projects.map((p, i) => ({ ...p, id: p.slug })));
 
     const handleDragEnd = (event, info) => {
-        if (Math.abs(info.offset.x) > 60 || Math.abs(info.offset.y) > 60) {
+        if (Math.abs(info.offset.x) > 60) {
             setCards(prev => {
                 const newCards = [...prev];
                 const front = newCards.shift();

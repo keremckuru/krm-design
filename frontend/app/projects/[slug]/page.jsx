@@ -7,18 +7,17 @@ import Image from 'next/image';
 import { StackGallery } from '@/components/stack-gallery';
 import { DesktopGallery } from '@/components/desktop-gallery';
 import { VandalismCanvas } from '@/components/vandalism-canvas';
-import { catalog, getProject } from '@/lib/store';
+import { catalog } from '@/lib/store';
 
 export const revalidate = 3600;
 
 export default async function Project({ params }) {
     const { slug } = await params;
-    let p;
-    try {
-        p = await getProject(slug);
-    } catch {
-        notFound();
-    }
+
+    // We fetch EVERYTHING so we don't rely on standard APIs on the old render server
+    const all = await catalog();
+    const p = all.find(item => item.slug === slug);
+    if (!p) notFound();
 
     return (
         <main>
@@ -71,12 +70,10 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
     const { slug } = await params;
-    let p;
-    try {
-        p = await getProject(slug);
-    } catch {
-        return { title: "Project not found — KRM Design" };
-    }
+    const all = await catalog();
+    const p = all.find(item => item.slug === slug);
+    if (!p) return { title: "Project not found — KRM Design" };
+
     return {
         title: p.title + " — KRM Design",
         description: p.description?.slice(0, 160) || '',

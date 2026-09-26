@@ -57,14 +57,14 @@ export function Archive({ projects, team = '' }) {
             <div className="filter-tabs">
                 {['All', 'Club', 'National'].map(k => <button key={k} aria-pressed={kind === k} onClick={() => setKind(k)}>{t(k)}</button>)}
             </div>
-            <Select aria-label={t("Country")} value={country} onValueChange={setCountry}>
-                <SelectTrigger><SelectValue placeholder={t("All countries")} /></SelectTrigger>
+            <Select value={country} onValueChange={setCountry}>
+                <SelectTrigger aria-label={t("Filter by country")}><SelectValue placeholder={t("All countries")} /></SelectTrigger>
                 <SelectContent>
                     {['All countries', ...new Set(projects.map(p => p.country))].map(c => <SelectItem key={c} value={c}>{t(c)}</SelectItem>)}
                 </SelectContent>
             </Select>
-            <Select aria-label={t("Sort by")} value={sort} onValueChange={setSort}>
-                <SelectTrigger><SelectValue placeholder={t("Default sorting")} /></SelectTrigger>
+            <Select value={sort} onValueChange={setSort}>
+                <SelectTrigger aria-label={t("Sort projects")}><SelectValue placeholder={t("Default sorting")} /></SelectTrigger>
                 <SelectContent>
                     <SelectItem value="default"><T>{"Default sorting"}</T></SelectItem>
                     <SelectItem value="country"><T>{"Group by country"}</T></SelectItem>

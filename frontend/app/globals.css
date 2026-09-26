@@ -275,7 +275,11 @@ img {
     border: 0;
     cursor: pointer;
     padding: 8px;
-    z-index: 201
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    z-index: 201;
 }
 
 .hamburger-icon {
@@ -362,12 +366,17 @@ img {
 .mobile-drawer-close {
     background: none;
     border: 0;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     color: var(--ink);
-    padding: 4px 8px;
+    padding: 8px;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 6px;
-    transition: background .2s
+    transition: background .2s;
 }
 
 .mobile-drawer-close:hover {
@@ -503,6 +512,9 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     align-items: center;
     gap: 8px;
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 .language-select-trigger:hover {
@@ -2722,9 +2734,18 @@ textarea {
         font-size: 24px;
     }
 
-    .header-cta,
-    .site-header>div>.preference-controls {
+    .header-cta {
         display: none !important;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .header-actions .preference-controls {
+        display: flex !important;
     }
 
     .mobile-prefs-wrapper {

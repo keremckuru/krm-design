@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 async function proxy(request, { params }) {
     const { path } = await params;
     const base = process.env.BACKEND_URL || 'http://127.0.0.1:4000';
+    if (path[0] === 'debug-me') return Response.json({ backend: base });
     const target = new URL('/api/' + path.map(encodeURIComponent).join('/'), base); target.search = new URL(request.url).search;
     const headers = new Headers(); for (const key of ['content-type', 'cookie', 'origin']) { const value = request.headers.get(key); if (value) headers.set(key, value); }
     try {
@@ -13,6 +14,9 @@ async function proxy(request, { params }) {
             revalidatePath('/', 'layout');
         }
         return new Response(upstream.body, { status: upstream.status, headers: outgoing });
-    } catch { return Response.json({ error: 'Service temporarily unavailable. Please try again.' }, { status: 503 }); }
+    } catch (e) {
+        console.error('API Proxy Error:', e.message, 'Target:', target.toString());
+        return Response.json({ error: 'Service temporarily unavailable. Please try again.', details: e.message }, { status: 503 });
+    }
 }
 export { proxy as GET, proxy as POST, proxy as PATCH, proxy as DELETE };

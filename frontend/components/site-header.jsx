@@ -17,14 +17,14 @@ export function SiteHeader() {
     return <>
         <header className="site-header">
             <Link className="wordmark" href="/" aria-label="KRM Design home">
-                <Image src="/krmIconLightMode.png" alt="KRM Design" width={110} height={40} className="logo-img logo-light" priority />
-                <Image src="/krmIconDarkMode.png" alt="KRM Design" width={110} height={40} className="logo-img logo-dark" priority />
+                <Image src="/krmIconLightMode.png" alt="" width={110} height={40} className="logo-img logo-light" priority />
+                <Image src="/krmIconDarkMode.png" alt="" width={110} height={40} className="logo-img logo-dark" priority />
             </Link>
             <nav aria-label="Main navigation">
                 {links.slice(1, 4).map(([href, label]) => <Link key={href} href={href}><T>{label}</T></Link>)}
                 <Link href="/info"><T>{"Info"}</T></Link>
             </nav>
-            <div style={{ display: 'flex', gap: '8px' }}>
+            <div className="header-actions">
                 <Link className="header-cta" href="/contact"><T>{"Start a project ↗"}</T></Link>
                 <PreferenceControls />
             </div>

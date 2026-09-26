@@ -7,6 +7,10 @@ export function CustomCursor() {
     const [isHovering, setIsHovering] = useState(false);
 
     useEffect(() => {
+        if (typeof window === 'undefined' || window.matchMedia('(pointer: coarse)').matches) {
+            return;
+        }
+
         const update = (e) => {
             setMouse({ x: e.clientX, y: e.clientY });
         };
@@ -29,6 +33,8 @@ export function CustomCursor() {
     return (
         <motion.div
             className="custom-cursor"
+            aria-hidden="true"
+            style={{ pointerEvents: 'none' }}
             animate={{
                 x: mouse.x - (isHovering ? 10 : 10),
                 y: mouse.y - (isHovering ? 10 : 10),

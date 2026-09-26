@@ -3,8 +3,10 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePreferences } from './preferences';
 
 export function DesktopGallery({ images, title }) {
+    const { t } = usePreferences();
     const [index, setIndex] = useState(0);
     const [modalOpen, setModalOpen] = useState(false);
 
@@ -13,12 +15,13 @@ export function DesktopGallery({ images, title }) {
 
     // Autoplay feature
     useEffect(() => {
-        // Pause autoplay if modal is open or only 1 image exists
+        // Pause autoplay if modal is open, mobile screen, or only 1 image exists
         if (modalOpen || images.length <= 1) return;
+        if (typeof window !== 'undefined' && window.innerWidth < 768) return;
 
         const timer = setInterval(() => {
             setIndex((i) => (i + 1) % images.length);
-        }, 2000); // changes every 2 seconds
+        }, 3000); // changes every 3 seconds
 
         return () => clearInterval(timer);
     }, [modalOpen, images.length]);
@@ -107,11 +110,11 @@ export function DesktopGallery({ images, title }) {
                         gap: '20px',
                         zIndex: 20
                     }}>
-                        <button onClick={prevSlide} style={{
+                        <button onClick={prevSlide} aria-label={t("Previous image")} style={{
                             background: 'rgba(0,0,0,0.6)', color: 'white', border: 'none', borderRadius: '50%',
                             width: '45px', height: '45px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)'
                         }}>←</button>
-                        <button onClick={nextSlide} style={{
+                        <button onClick={nextSlide} aria-label={t("Next image")} style={{
                             background: 'rgba(0,0,0,0.6)', color: 'white', border: 'none', borderRadius: '50%',
                             width: '45px', height: '45px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)'
                         }}>→</button>
@@ -140,14 +143,14 @@ export function DesktopGallery({ images, title }) {
                     >
                         {/* Logo Left Top */}
                         <div style={{ position: 'absolute', top: '3vw', left: '3vw', zIndex: 1000000 }}>
-                            <Link href="/" className="wordmark" style={{ textDecoration: 'none' }}>
-                                <Image src="/krmIconLightMode.png" alt="KRM Design" width={110} height={40} className="logo-img logo-light" priority />
-                                <Image src="/krmIconDarkMode.png" alt="KRM Design" width={110} height={40} className="logo-img logo-dark" priority />
+                            <Link href="/" className="wordmark" aria-label="KRM Design home" style={{ textDecoration: 'none' }}>
+                                <Image src="/krmIconLightMode.png" alt="" width={110} height={40} className="logo-img logo-light" priority />
+                                <Image src="/krmIconDarkMode.png" alt="" width={110} height={40} className="logo-img logo-dark" priority />
                             </Link>
                         </div>
 
                         {/* Close button Right Top */}
-                        <button onClick={() => setModalOpen(false)} style={{
+                        <button onClick={() => setModalOpen(false)} aria-label={t("Close")} style={{
                             position: 'absolute', top: '2vw', right: '3vw',
                             background: 'transparent', border: 'none', color: 'white',
                             fontSize: '48px', fontWeight: 300, cursor: 'pointer', zIndex: 1000000,
@@ -171,11 +174,11 @@ export function DesktopGallery({ images, title }) {
                         {/* Modal Controls (Optional, allowing inspection of multiple inside the modal) */}
                         {images.length > 1 && (
                             <>
-                                <button onClick={(e) => { e.stopPropagation(); prevSlide(); }} style={{
+                                <button onClick={(e) => { e.stopPropagation(); prevSlide(); }} aria-label={t("Previous image")} style={{
                                     position: 'absolute', left: '2vw', top: '50%', transform: 'translateY(-50%)',
                                     background: 'transparent', border: 'none', color: 'white', fontSize: '36px', cursor: 'pointer', zIndex: 1000000
                                 }}>←</button>
-                                <button onClick={(e) => { e.stopPropagation(); nextSlide(); }} style={{
+                                <button onClick={(e) => { e.stopPropagation(); nextSlide(); }} aria-label={t("Next image")} style={{
                                     position: 'absolute', right: '2vw', top: '50%', transform: 'translateY(-50%)',
                                     background: 'transparent', border: 'none', color: 'white', fontSize: '36px', cursor: 'pointer', zIndex: 1000000
                                 }}>→</button>

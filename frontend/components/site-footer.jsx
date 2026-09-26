@@ -56,8 +56,8 @@ export function SiteFooter() {
     return <footer className="site-footer">
         <div className="footer-top">
             <a className="wordmark" href="/" aria-label="KRM Design home">
-                <Image src="/krmIconLightMode.png" alt="KRM Design" width={140} height={48} className="logo-img logo-light" />
-                <Image src="/krmIconDarkMode.png" alt="KRM Design" width={140} height={48} className="logo-img logo-dark" />
+                <Image src="/krmIconLightMode.png" alt="" width={140} height={48} className="logo-img logo-light" />
+                <Image src="/krmIconDarkMode.png" alt="" width={140} height={48} className="logo-img logo-dark" />
             </a>
             <nav aria-label="Footer navigation">
                 <a href="/"><T>{"Home"}</T></a>
@@ -108,11 +108,11 @@ export function SiteFooter() {
                 style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'grab', userSelect: 'none' }}
                 title="Click to toggle theme"
             >
-                <span style={{ color: 'rgba(255,255,255,0.4)' }}>Color of the day</span>
+                <span style={{ color: 'var(--ink)', opacity: 0.7 }}>Color of the day</span>
                 <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: todayPantone.hex }}></div>
                 <span style={{ color: todayPantone.hex, fontWeight: 'bold' }}>PANTONE {todayPantone.code} {todayPantone.name}</span>
             </div>
-            <a href="https://instagram.com/krmdesign" target="_blank" rel="noreferrer"><T>{"Instagram ↗"}</T></a>
+            <a href="https://instagram.com/krmdesign" target="_blank" rel="noopener noreferrer" aria-label="KRM Design Instagram"><T>{"Instagram ↗"}</T></a>
         </div>
         {varMode && <VarMode />}
         {tacticalMode && <TacticalBoard onClose={() => setTacticalMode(false)} />}
