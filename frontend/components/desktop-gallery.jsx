@@ -53,8 +53,8 @@ export function DesktopGallery({ images, title }) {
                     const abs = Math.abs(realDiff);
                     const isCenter = abs === 0;
 
-                    const scale = abs === 0 ? 1 : (abs === 1 ? 0.85 : 0.7);
-                    const x = abs === 0 ? '0vw' : (abs === 1 ? (realDiff > 0 ? '22vw' : '-22vw') : (realDiff > 0 ? '38vw' : '-38vw'));
+                    const scale = abs === 0 ? 1 : (abs === 1 ? 0.9 : 0.8);
+                    const x = abs === 0 ? '0%' : (abs === 1 ? (realDiff > 0 ? '65%' : '-65%') : (realDiff > 0 ? '120%' : '-120%'));
                     const zIndex = 10 - abs;
                     const filter = abs === 0 ? 'brightness(1)' : (abs === 1 ? 'brightness(0.6)' : 'brightness(0.3)');
 
@@ -63,7 +63,7 @@ export function DesktopGallery({ images, title }) {
                             key={i}
                             custom={realDiff}
                             layout
-                            initial={{ opacity: 0, x: Math.sign(realDiff) * 300, scale: 0.8 }}
+                            initial={{ opacity: 0, x: Math.sign(realDiff) * 150 + '%', scale: 0.5 }}
                             animate={{
                                 opacity: abs > 2 ? 0 : 1,
                                 x: x,
@@ -71,11 +71,11 @@ export function DesktopGallery({ images, title }) {
                                 zIndex: zIndex,
                                 filter: filter
                             }}
-                            exit={{ opacity: 0, scale: 0.8 }}
+                            exit={{ opacity: 0, scale: 0.5 }}
                             transition={{ type: 'spring', stiffness: 200, damping: 25 }}
                             style={{
                                 position: 'absolute',
-                                height: isCenter ? '75vh' : '60vh',
+                                width: 'clamp(280px, 40vw, 650px)',
                                 aspectRatio: '4/5',
                                 borderRadius: '16px',
                                 overflow: 'hidden',
