@@ -30,14 +30,14 @@ export function DesktopGallery({ images, title }) {
             style={{
                 position: 'relative',
                 width: '100%',
-                height: '70vh',
-                minHeight: '400px',
+                height: '80vh',
+                minHeight: '500px',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
                 perspective: '1000px',
-                marginTop: '10px',
-                marginBottom: '40px',
+                marginTop: '30px',
+                marginBottom: '60px',
                 overflow: 'hidden'
             }}
         >
@@ -59,7 +59,7 @@ export function DesktopGallery({ images, title }) {
                             layout
                             initial={{ opacity: 0, x: Math.sign(realDiff) * 300, scale: 0.8 }}
                             animate={{
-                                opacity: Math.abs(realDiff) > 1 ? 0 : 1,
+                                opacity: Math.abs(realDiff) > 2 ? 0 : 1,
                                 x: realDiff * 400,
                                 scale: isCenter ? 1 : 0.8,
                                 zIndex: isCenter ? 10 : 5 - Math.abs(realDiff),
@@ -69,12 +69,11 @@ export function DesktopGallery({ images, title }) {
                             transition={{ type: 'spring', stiffness: 200, damping: 25 }}
                             style={{
                                 position: 'absolute',
-                                width: isCenter ? '55vw' : '40vw',
-                                maxWidth: '900px',
-                                height: isCenter ? '75vh' : '55vh',
+                                height: isCenter ? '75vh' : '60vh',
+                                aspectRatio: '4/5',
                                 borderRadius: '16px',
                                 overflow: 'hidden',
-                                backgroundColor: 'var(--paper)',
+                                backgroundColor: 'transparent',
                                 boxShadow: isCenter ? '0 40px 80px rgba(0,0,0,0.25)' : '0 15px 30px rgba(0,0,0,0.1)',
                                 cursor: isCenter ? 'default' : 'pointer'
                             }}
@@ -86,7 +85,7 @@ export function DesktopGallery({ images, title }) {
                             <Image
                                 src={src}
                                 fill
-                                style={{ objectFit: 'contain', background: 'transparent' }}
+                                style={{ objectFit: 'cover', background: 'transparent' }}
                                 alt={`${title} - slide ${i + 1}`}
                                 priority={isCenter}
                                 sizes="(max-width: 768px) 100vw, 60vw"
