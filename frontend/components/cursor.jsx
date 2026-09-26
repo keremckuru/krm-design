@@ -34,7 +34,7 @@ export function CustomCursor() {
         <motion.div
             className="custom-cursor"
             aria-hidden="true"
-            style={{ pointerEvents: 'none' }}
+            style={{ pointerEvents: 'none', mixBlendMode: 'difference', background: 'white', zIndex: 999999 }}
             animate={{
                 x: mouse.x - (isHovering ? 10 : 10),
                 y: mouse.y - (isHovering ? 10 : 10),

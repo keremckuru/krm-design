@@ -2,9 +2,10 @@
 import { T } from '@/components/preferences';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import VarMode from '@/components/var-mode';
-import TacticalBoard from '@/components/tactical-board';
-import RetroPlayer from '@/components/retro-player';
+import dynamic from 'next/dynamic';
+const VarMode = dynamic(() => import('@/components/var-mode'), { ssr: false });
+const TacticalBoard = dynamic(() => import('@/components/tactical-board'), { ssr: false });
+const RetroPlayer = dynamic(() => import('@/components/retro-player'), { ssr: false });
 
 const pantones = [
     { code: '19-4052', name: 'Classic Blue', hex: '#0F4C81' },
