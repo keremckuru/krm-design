@@ -36,8 +36,14 @@ export default async function Project({ params }) {
                 </div>
             </section>
 
-            <div className="case-gallery">
+            {/* Desktop Space-Conscious 3D Carousel */}
+            <div className="case-gallery desktop-only-gallery">
                 <DesktopGallery images={p.images} title={p.title} />
+            </div>
+
+            {/* Mobile Tinder Stack */}
+            <div className="case-gallery mobile-only-gallery">
+                <StackGallery images={p.images} title={p.title} />
             </div>
 
             <section className="case-description">
