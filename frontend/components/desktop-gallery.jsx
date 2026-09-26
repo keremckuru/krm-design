@@ -50,7 +50,13 @@ export function DesktopGallery({ images, title }) {
 
                     if (Math.abs(realDiff) > 2) return null;
 
-                    const isCenter = realDiff === 0;
+                    const abs = Math.abs(realDiff);
+                    const isCenter = abs === 0;
+
+                    const scale = abs === 0 ? 1 : (abs === 1 ? 0.85 : 0.7);
+                    const x = abs === 0 ? '0vw' : (abs === 1 ? (realDiff > 0 ? '22vw' : '-22vw') : (realDiff > 0 ? '38vw' : '-38vw'));
+                    const zIndex = 10 - abs;
+                    const filter = abs === 0 ? 'brightness(1)' : (abs === 1 ? 'brightness(0.6)' : 'brightness(0.3)');
 
                     return (
                         <motion.div
@@ -59,11 +65,11 @@ export function DesktopGallery({ images, title }) {
                             layout
                             initial={{ opacity: 0, x: Math.sign(realDiff) * 300, scale: 0.8 }}
                             animate={{
-                                opacity: Math.abs(realDiff) > 2 ? 0 : 1,
-                                x: realDiff * 400,
-                                scale: isCenter ? 1 : 0.8,
-                                zIndex: isCenter ? 10 : 5 - Math.abs(realDiff),
-                                filter: isCenter ? 'brightness(1)' : 'brightness(0.5)'
+                                opacity: abs > 2 ? 0 : 1,
+                                x: x,
+                                scale: scale,
+                                zIndex: zIndex,
+                                filter: filter
                             }}
                             exit={{ opacity: 0, scale: 0.8 }}
                             transition={{ type: 'spring', stiffness: 200, damping: 25 }}
