@@ -575,16 +575,16 @@ input[type="date"] {
 
 /* --- Next Project Teaser --- */
 .next-project-teaser {
-    padding: 40px 3vw;
+    padding: 20px 3vw 0 3vw;
 }
 
 .next-project-card {
     display: block;
     position: relative;
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
-    aspect-ratio: 16/9;
-    max-height: 500px;
+    aspect-ratio: 21/9;
+    max-height: 400px;
     background: #deddd7;
     text-decoration: none;
 }
@@ -641,11 +641,14 @@ input[type="date"] {
 
 @media (max-width: 768px) {
     .next-project-card {
-        aspect-ratio: 4/5;
-        max-height: none;
+        aspect-ratio: 16/9;
+        max-height: 250px;
     }
     .next-project-info {
-        padding: 24px;
+        padding: 20px;
+    }
+    .next-project-info h2 {
+        font-size: 24px;
     }
 }
 
