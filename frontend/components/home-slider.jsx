@@ -64,16 +64,26 @@ export function HomeSlider({ projects }) {
                             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                             style={{
                                 position: 'absolute',
-                                width: 'clamp(280px, 40vw, 650px)',
-                                aspectRatio: '3/4',
-                                borderRadius: '16px', overflow: 'hidden', cursor: isCenter ? 'pointer' : 'default',
-                                boxShadow: isCenter ? '0 40px 80px rgba(0,0,0,0.25)' : '0 15px 30px rgba(0,0,0,0.1)',
+                                height: 'clamp(400px, 70vh, 850px)',
+                                display: 'flex',
                                 pointerEvents: isCenter ? 'auto' : 'none',
-                                backgroundColor: 'transparent'
+                                zIndex: zIndex
                             }}
                         >
-                            <Link href={'/projects/' + p.slug} style={{ display: 'block', width: '100%', height: '100%' }}>
-                                <Image src={p.images[0]} fill style={{ objectFit: 'cover', background: 'transparent' }} alt={p.title} priority={false} sizes="(max-width: 768px) 100vw, 50vw" />
+                            <Link href={'/projects/' + p.slug} style={{ display: 'block', height: '100%', width: 'auto' }}>
+                                <img 
+                                    src={p.images[0]} 
+                                    alt={p.title} 
+                                    style={{ 
+                                        height: '100%', 
+                                        width: 'auto',
+                                        maxWidth: '85vw',
+                                        borderRadius: '12px', 
+                                        boxShadow: isCenter ? '0 40px 80px rgba(0,0,0,0.25)' : '0 15px 30px rgba(0,0,0,0.1)',
+                                        cursor: isCenter ? 'pointer' : 'default',
+                                        objectFit: 'cover'
+                                    }} 
+                                />
                             </Link>
                         </motion.div>
                     );

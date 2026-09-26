@@ -74,12 +74,8 @@ export function DesktopGallery({ images, title }) {
                             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                             style={{
                                 position: 'absolute',
-                                width: 'clamp(280px, 40vw, 650px)',
-                                aspectRatio: '3/4',
-                                borderRadius: '16px',
-                                overflow: 'hidden',
-                                backgroundColor: 'transparent',
-                                boxShadow: isCenter ? '0 40px 80px rgba(0,0,0,0.25)' : '0 15px 30px rgba(0,0,0,0.1)',
+                                height: 'clamp(400px, 70vh, 850px)',
+                                display: 'flex',
                                 cursor: isCenter ? 'default' : 'pointer'
                             }}
                             onClick={() => {
@@ -87,13 +83,17 @@ export function DesktopGallery({ images, title }) {
                                 else if (realDiff < 0) prevSlide();
                             }}
                         >
-                            <Image
+                            <img
                                 src={src}
-                                fill
-                                style={{ objectFit: 'cover', background: 'transparent' }}
                                 alt={`${title} - slide ${i + 1}`}
-                                priority={isCenter}
-                                sizes="(max-width: 768px) 100vw, 60vw"
+                                style={{
+                                    height: '100%',
+                                    width: 'auto',
+                                    maxWidth: '85vw',
+                                    borderRadius: '12px',
+                                    boxShadow: isCenter ? '0 40px 80px rgba(0,0,0,0.25)' : '0 15px 30px rgba(0,0,0,0.1)',
+                                    objectFit: 'cover'
+                                }}
                             />
                         </motion.div>
                     );
