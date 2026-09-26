@@ -84,8 +84,9 @@ export function DesktopGallery({ images, title }) {
                             }}
                         >
                             <img
-                                src={src}
+                                src={`/_next/image?url=${encodeURIComponent(src)}&w=1080&q=75`}
                                 alt={`${title} - slide ${i + 1}`}
+                                fetchPriority={isCenter ? "high" : "auto"}
                                 style={{
                                     height: '100%',
                                     width: 'auto',

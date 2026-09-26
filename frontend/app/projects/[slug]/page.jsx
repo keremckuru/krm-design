@@ -57,7 +57,7 @@ export default async function Project({ params }) {
             <section className="next-project-teaser">
                 <Link href={`/projects/${nextProject.slug}`} className="next-project-card">
                     <div className="next-project-image">
-                        <img src={nextProject.images[0]} alt={nextProject.title} />
+                        <img src={`/_next/image?url=${encodeURIComponent(nextProject.images[0])}&w=1080&q=75`} alt={nextProject.title} loading="lazy" />
                         <div className="next-project-overlay"></div>
                     </div>
                     <div className="next-project-info">

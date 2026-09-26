@@ -72,8 +72,9 @@ export function HomeSlider({ projects }) {
                         >
                             <Link href={'/projects/' + p.slug} style={{ display: 'block', height: '100%', width: 'auto' }}>
                                 <img 
-                                    src={p.images[0]} 
+                                    src={`/_next/image?url=${encodeURIComponent(p.images[0])}&w=1080&q=75`} 
                                     alt={p.title} 
+                                    fetchPriority={isCenter ? "high" : "auto"}
                                     style={{ 
                                         height: '100%', 
                                         width: 'auto',
