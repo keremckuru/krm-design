@@ -18,7 +18,7 @@ export function HomeSlider({ projects }) {
         if (typeof window !== 'undefined' && window.innerWidth < 768) return;
         const timer = setInterval(() => {
             setIndex((i) => (i + 1) % projects.length);
-        }, 3500);
+        }, 2500);
         return () => clearInterval(timer);
     }, [projects.length, isHovered]);
 
@@ -68,11 +68,11 @@ export function HomeSlider({ projects }) {
                                 borderRadius: '16px', overflow: 'hidden', cursor: isCenter ? 'pointer' : 'default',
                                 boxShadow: isCenter ? '0 30px 60px rgba(0,0,0,0.15)' : '0 10px 30px rgba(0,0,0,0.1)',
                                 pointerEvents: isCenter ? 'auto' : 'none',
-                                backgroundColor: isCenter ? 'rgba(0,0,0,0.03)' : 'transparent'
+                                backgroundColor: 'var(--paper)'
                             }}
                         >
                             <Link href={'/projects/' + p.slug} style={{ display: 'block', width: '100%', height: '100%' }}>
-                                <Image src={p.images[0]} fill style={{ objectFit: 'contain' }} alt={p.title} priority={false} sizes="50vw" />
+                                <Image src={p.images[0]} fill style={{ objectFit: 'contain', background: 'transparent' }} alt={p.title} priority={false} sizes="50vw" />
                             </Link>
                         </motion.div>
                     );

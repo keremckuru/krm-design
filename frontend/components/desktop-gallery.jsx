@@ -19,7 +19,7 @@ export function DesktopGallery({ images, title }) {
 
         const timer = setInterval(() => {
             setIndex((i) => (i + 1) % images.length);
-        }, 3000);
+        }, 2000);
 
         return () => clearInterval(timer);
     }, [images.length, isHovered]);
@@ -79,7 +79,7 @@ export function DesktopGallery({ images, title }) {
                                 height: '100%',
                                 borderRadius: '16px',
                                 overflow: 'hidden',
-                                backgroundColor: isCenter ? 'rgba(0,0,0,0.03)' : 'transparent',
+                                backgroundColor: 'var(--paper)',
                                 boxShadow: isCenter ? '0 30px 60px rgba(0,0,0,0.15)' : '0 10px 30px rgba(0,0,0,0.1)',
                                 cursor: isCenter ? 'default' : 'pointer'
                             }}
@@ -91,7 +91,7 @@ export function DesktopGallery({ images, title }) {
                             <Image
                                 src={src}
                                 fill
-                                style={{ objectFit: 'contain' }}
+                                style={{ objectFit: 'contain', background: 'transparent' }}
                                 alt={`${title} - slide ${i + 1}`}
                                 priority={isCenter}
                                 sizes="50vw"
