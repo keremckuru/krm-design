@@ -4,6 +4,13 @@ import { Preferences } from '@/components/preferences';
 import { locales } from '@/lib/translations';
 import { CustomCursor } from '@/components/cursor';
 import { KRMPhysics } from '@/components/krm-physics';
+import { Outfit } from 'next/font/google';
+
+const outfit = Outfit({
+    subsets: ['latin'],
+    variable: '--font-sans',
+    display: 'swap',
+});
 
 const pantones = [
     { code: '19-4052', name: 'Classic Blue', hex: '#0F4C81' },
@@ -79,7 +86,7 @@ export default async function RootLayout({ children }) {
     const theme = cookieTheme === 'pantone' ? 'pantone' : (cookieTheme === 'dark' ? 'dark' : 'light');
 
     return (<html lang={locale} data-theme={theme} style={theme === 'pantone' ? getPantoneStyles() : undefined}>
-        <body className="antialiased">
+        <body className={`antialiased ${outfit.variable}`}>
             <Preferences initialLocale={locale} initialTheme={theme}>
                 <CustomCursor />
                 <KRMPhysics />
