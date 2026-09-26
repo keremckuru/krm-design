@@ -8,27 +8,24 @@ import { usePreferences, T } from './preferences';
 export function HomeSlider({ projects }) {
     const { t } = usePreferences();
     const [index, setIndex] = useState(0);
-    const [isHovered, setIsHovered] = useState(false);
 
     const nextSlide = () => setIndex((i) => (i + 1) % projects.length);
     const prevSlide = () => setIndex((i) => (i - 1 + projects.length) % projects.length);
 
     useEffect(() => {
-        if (projects.length <= 1 || isHovered) return;
+        if (projects.length <= 1) return;
         if (typeof window !== 'undefined' && window.innerWidth < 768) return;
         const timer = setInterval(() => {
             setIndex((i) => (i + 1) % projects.length);
-        }, 2500);
+        }, 1500);
         return () => clearInterval(timer);
-    }, [projects.length, isHovered]);
+    }, [projects.length]);
 
     if (projects.length === 0) return null;
 
     return (
         <div 
             className="desktop-only-gallery" 
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
             style={{
                 position: 'relative', width: '100%', height: '80vh', minHeight: '500px',
                 display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',

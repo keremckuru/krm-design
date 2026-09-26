@@ -7,29 +7,26 @@ import { usePreferences } from './preferences';
 export function DesktopGallery({ images, title }) {
     const { t } = usePreferences();
     const [index, setIndex] = useState(0);
-    const [isHovered, setIsHovered] = useState(false);
 
     const nextSlide = () => setIndex((i) => (i + 1) % images.length);
     const prevSlide = () => setIndex((i) => (i - 1 + images.length) % images.length);
 
     // Autoplay feature
     useEffect(() => {
-        if (images.length <= 1 || isHovered) return;
+        if (images.length <= 1) return;
         if (typeof window !== 'undefined' && window.innerWidth < 768) return;
 
         const timer = setInterval(() => {
             setIndex((i) => (i + 1) % images.length);
-        }, 2000);
+        }, 1500);
 
         return () => clearInterval(timer);
-    }, [images.length, isHovered]);
+    }, [images.length]);
 
     if (images.length === 0) return null;
 
     return (
         <div 
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
             style={{
                 position: 'relative',
                 width: '100%',
