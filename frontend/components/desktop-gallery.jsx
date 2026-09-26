@@ -71,13 +71,13 @@ export function DesktopGallery({ images, title }) {
                             transition={{ type: 'spring', stiffness: 200, damping: 25 }}
                             style={{
                                 position: 'absolute',
-                                width: '55vw',
-                                maxWidth: '800px',
-                                height: '100%',
+                                width: '38vw',
+                                maxWidth: '650px',
+                                height: '90%',
                                 borderRadius: '16px',
                                 overflow: 'hidden',
-                                backgroundColor: 'var(--paper)',
-                                boxShadow: isCenter ? '0 30px 60px rgba(0,0,0,0.15)' : '0 10px 30px rgba(0,0,0,0.1)',
+                                backgroundColor: 'transparent',
+                                boxShadow: isCenter ? '0 40px 80px rgba(0,0,0,0.3)' : '0 15px 40px rgba(0,0,0,0.15)',
                                 cursor: isCenter ? 'default' : 'pointer'
                             }}
                             onClick={() => {
@@ -88,7 +88,7 @@ export function DesktopGallery({ images, title }) {
                             <Image
                                 src={src}
                                 fill
-                                style={{ objectFit: 'contain', background: 'transparent' }}
+                                style={{ objectFit: 'cover', background: 'transparent' }}
                                 alt={`${title} - slide ${i + 1}`}
                                 priority={isCenter}
                                 sizes="50vw"

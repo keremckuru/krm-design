@@ -61,15 +61,15 @@ export function HomeSlider({ projects }) {
                             exit={{ opacity: 0, scale: 0.8 }}
                             transition={{ type: 'spring', stiffness: 200, damping: 25 }}
                             style={{
-                                position: 'absolute', top: '0', width: '55vw', maxWidth: '800px', height: '80%',
+                                position: 'absolute', top: '0', width: '35vw', maxWidth: '600px', height: '85%',
                                 borderRadius: '16px', overflow: 'hidden', cursor: isCenter ? 'pointer' : 'default',
-                                boxShadow: isCenter ? '0 30px 60px rgba(0,0,0,0.15)' : '0 10px 30px rgba(0,0,0,0.1)',
+                                boxShadow: isCenter ? '0 40px 80px rgba(0,0,0,0.3)' : '0 15px 40px rgba(0,0,0,0.15)',
                                 pointerEvents: isCenter ? 'auto' : 'none',
-                                backgroundColor: 'var(--paper)'
+                                backgroundColor: 'transparent'
                             }}
                         >
                             <Link href={'/projects/' + p.slug} style={{ display: 'block', width: '100%', height: '100%' }}>
-                                <Image src={p.images[0]} fill style={{ objectFit: 'contain', background: 'transparent' }} alt={p.title} priority={false} sizes="50vw" />
+                                <Image src={p.images[0]} fill style={{ objectFit: 'cover', background: 'transparent' }} alt={p.title} priority={false} sizes="40vw" />
                             </Link>
                         </motion.div>
                     );
