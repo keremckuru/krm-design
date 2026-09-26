@@ -69,11 +69,12 @@ export function DesktopGallery({ images, title }) {
                             transition={{ type: 'spring', stiffness: 200, damping: 25 }}
                             style={{
                                 position: 'absolute',
-                                height: isCenter ? '80vh' : '60vh',
-                                aspectRatio: '4/5',
+                                width: isCenter ? '55vw' : '40vw',
+                                maxWidth: '900px',
+                                height: isCenter ? '75vh' : '55vh',
                                 borderRadius: '16px',
                                 overflow: 'hidden',
-                                backgroundColor: 'transparent',
+                                backgroundColor: 'var(--paper)',
                                 boxShadow: isCenter ? '0 40px 80px rgba(0,0,0,0.25)' : '0 15px 30px rgba(0,0,0,0.1)',
                                 cursor: isCenter ? 'default' : 'pointer'
                             }}
@@ -85,10 +86,10 @@ export function DesktopGallery({ images, title }) {
                             <Image
                                 src={src}
                                 fill
-                                style={{ objectFit: 'cover', background: 'transparent' }}
+                                style={{ objectFit: 'contain', background: 'transparent' }}
                                 alt={`${title} - slide ${i + 1}`}
                                 priority={isCenter}
-                                sizes="(max-width: 768px) 100vw, 50vw"
+                                sizes="(max-width: 768px) 100vw, 60vw"
                             />
                         </motion.div>
                     );
