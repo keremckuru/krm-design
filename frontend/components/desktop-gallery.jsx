@@ -62,7 +62,6 @@ export function DesktopGallery({ images, title }) {
                         <motion.div
                             key={i}
                             custom={realDiff}
-                            layout
                             initial={{ opacity: 0, x: Math.sign(realDiff) * 150 + '%', scale: 0.5 }}
                             animate={{
                                 opacity: abs > 2 ? 0 : 1,
@@ -72,11 +71,11 @@ export function DesktopGallery({ images, title }) {
                                 filter: filter
                             }}
                             exit={{ opacity: 0, scale: 0.5 }}
-                            transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                             style={{
                                 position: 'absolute',
                                 width: 'clamp(280px, 40vw, 650px)',
-                                aspectRatio: '4/5',
+                                aspectRatio: '3/4',
                                 borderRadius: '16px',
                                 overflow: 'hidden',
                                 backgroundColor: 'transparent',

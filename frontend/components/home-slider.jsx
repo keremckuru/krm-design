@@ -52,7 +52,6 @@ export function HomeSlider({ projects }) {
                         <motion.div
                             key={p.slug}
                             custom={realDiff}
-                            layout
                             initial={{ opacity: 0, x: Math.sign(realDiff) * 150 + '%', scale: 0.5 }}
                             animate={{
                                 opacity: abs > 2 ? 0 : 1,
@@ -62,11 +61,11 @@ export function HomeSlider({ projects }) {
                                 filter: filter
                             }}
                             exit={{ opacity: 0, scale: 0.5 }}
-                            transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                             style={{
                                 position: 'absolute',
                                 width: 'clamp(280px, 40vw, 650px)',
-                                aspectRatio: '4/5',
+                                aspectRatio: '3/4',
                                 borderRadius: '16px', overflow: 'hidden', cursor: isCenter ? 'pointer' : 'default',
                                 boxShadow: isCenter ? '0 40px 80px rgba(0,0,0,0.25)' : '0 15px 30px rgba(0,0,0,0.1)',
                                 pointerEvents: isCenter ? 'auto' : 'none',
