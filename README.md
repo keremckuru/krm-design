@@ -1,104 +1,121 @@
-# KRM Design — Next.js + JavaScript
+# KRM Design
 
-Bu teslim, mevcut KRM Design portfolyosunun gerçek Next.js App Router'a taşınmış, frontend ve backend'i ayrılmış sürümüdür. Arayüz ve sunucu kodu JavaScript / JSX'tir.
+A multilingual portfolio & design studio built with **Next.js 15** (App Router) and a custom **Node.js** backend.
 
-## Hızlı kurulum
+🌐 **Live:** [krmdesign.studio](https://krmdesign.studio)
 
-Gereksinim: **Node.js 24.x ve npm**. ZIP'i açıp `KRM-Design-NextJS` klasöründe terminal açın:
+---
+
+## ✨ Features
+
+- **Interactive 3D World Map** — explore projects geographically with zoom & rotate
+- **Physics-Based Animations** — canvas-driven visual effects and custom cursor
+- **Gallery System** — desktop & mobile-optimised image galleries with zoom, swipe & drag
+- **Dark/Light Theme** — Pantone-inspired dynamic theming based on the year's color of the year
+- **7 Languages** — English, Turkish, Spanish, German, French, Norwegian Bokmål & Italian
+- **Admin Panel** — full CMS with drag-and-drop ordering, image upload (auto WebP conversion), drafts, trash & version conflict detection
+- **SEO Ready** — sitemap, robots.txt, Open Graph metadata
+
+## 🏗️ Architecture
+
+```
+├── frontend/          # Next.js 15 App Router (React, Tailwind CSS v4, shadcn/ui)
+│   ├── app/           # Pages, layouts, API proxy, metadata
+│   ├── components/    # UI components, gallery, admin panel, 3D world
+│   ├── lib/           # Translations, data fetching, state management
+│   └── public/        # Static assets
+├── backend/           # Custom Node.js HTTP server
+│   ├── src/           # API, auth, SQLite, image processing (Sharp)
+│   └── tests/         # API integration tests
+└── scripts/           # Dev/prod runners, smoke tests
+```
+
+The frontend proxies all `/api/*` requests to the backend. The browser never connects directly to the backend port.
+
+## 🚀 Quick Start
+
+**Prerequisites:** Node.js ≥ 24.x, npm
 
 ```bash
+# Clone the repo
+git clone https://github.com/KeremCanKuru22/krm-design.git
+cd krm-design
+
+# Install dependencies
 npm ci
+
+# Set up admin credentials
 npm run admin:setup
+
+# Build & start
 npm run build
 npm start
 ```
 
-`admin:setup` kendi admin e-posta adresinizi ve en az 12 karakterlik şifrenizi ister. Şifre ekranda gösterilmez; veritabanında scrypt özeti tutulur. Hazır veya ortak admin şifresi yoktur.
+| URL | Description |
+|-----|-------------|
+| `http://localhost:3000` | Portfolio site |
+| `http://localhost:3000/admin` | Admin panel |
 
-- Site: http://localhost:3000
-- Admin: http://localhost:3000/admin
-- Geliştirme: `npm run dev`
-- Backend testleri: `npm test`
-- Üretim entegrasyon testi: `npm run test:smoke` (önce build gerekir)
+### Development
 
-Paket, doğrulanmış `.next` üretim çıktısını da içerir. Farklı bir işletim sisteminde kullanırken `npm ci` ve `npm run build` ile yeniden derlemek önerilir. `node_modules` dahil değildir; bağımlılıklar `package-lock.json` ile sabitlenmiştir.
+```bash
+npm run dev          # Starts both frontend & backend with hot reload
+```
 
-## Klasör yapısı
-
-| Klasör | İşlev |
-|---|---|
-| `frontend/app` | Next.js sayfaları, metadata, hata ekranı ve API geçidi |
-| `frontend/components` | Ana sayfa, dil/tema, dünya modeli, galeri ve admin arayüzü |
-| `frontend/lib` | Çeviriler ve sunucu tarafı backend istemcisi |
-| `frontend/public` | Portfolyo görselleri, harita ve favicon |
-| `frontend/.next` | Test edilmiş üretim derlemesi |
-| `backend/src` | HTTP API, oturumlar, SQLite, yükleme ve görsel işleme |
-| `backend/tests` | 16 gerçek veritabanı / API testi |
-| `scripts` | Birlikte çalıştırma ve üretim entegrasyon testi |
-| `verification` | Derleme ve test çıktıları |
-
-Frontend `/api/*` isteklerini kendi sunucusundan backend'e iletir. Veritabanı, kimlik doğrulama, doğrulama kuralları ve görsel dosyaları backend tarafından yönetilir. Tarayıcı backend portuna doğrudan bağlanmaz. Next.js tarafında kalan API dosyası yalnızca geçittir.
-
-## Ayrı çalıştırma
-
-İki ayrı terminalde:
+Or run them separately:
 
 ```bash
 npm run dev --workspace backend
 npm run dev --workspace frontend
 ```
 
-Üretimde:
+### Testing
 
 ```bash
-npm run start --workspace backend
-npm run start --workspace frontend
+npm test             # Backend API tests
+npm run test:smoke   # Production smoke tests (requires build)
 ```
 
-Backend tek Node süreci ve kalıcı yerel disk için hazırlanmıştır. SQLite veritabanını geçici / salt okunur serverless diske koymayın. Çoklu sunucu kurulumu bu teslimin kapsamı değildir.
+## ⚙️ Environment Variables
 
-## Ortam ayarları
+Default localhost setup requires no configuration. To customise, copy the example files:
 
-Varsayılan localhost kurulumu ek dosya gerektirmez. Özelleştirmek için:
+```bash
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env.local
+```
 
-1. `backend/.env.example` → `backend/.env`
-2. `frontend/.env.example` → `frontend/.env.local`
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `BACKEND_PORT` | `4000` | Backend port |
+| `BACKEND_HOST` | `127.0.0.1` | Backend listen address |
+| `PUBLIC_ORIGIN` | `http://localhost:3000` | Public-facing origin (no trailing `/`) |
+| `DATA_DIR` | `data` | Data directory relative to backend |
+| `BACKEND_URL` | `http://127.0.0.1:4000` | Backend address for Next.js server |
 
-| Değişken | Varsayılan | Açıklama |
-|---|---|---|
-| `BACKEND_PORT` | `4000` | Backend portu |
-| `BACKEND_HOST` | `127.0.0.1` | Backend dinleme adresi |
-| `PUBLIC_ORIGIN` | `http://localhost:3000` | Tarayıcıdan kullanılan tam origin; sonunda `/` yok |
-| `DATA_DIR` | `data` | Backend klasörüne göre veri dizini; mutlak yol da olabilir |
-| `BACKEND_URL` | `http://127.0.0.1:4000` | Next.js sunucusunun backend adresi |
+> [!NOTE]
+> `localhost` and `127.0.0.1` are different origins. Use `http://localhost:3000` for local development. For production with a domain, set `PUBLIC_ORIGIN=https://yourdomain.com`.
 
-`localhost` ve `127.0.0.1` aynı origin değildir. Yerel sitede `http://localhost:3000` kullanın. Alan adıyla yayınlarken `PUBLIC_ORIGIN=https://alanadiniz.com` ayarlayın; HTTPS reverse proxy'yi Next.js portuna yönlendirin. Bu ayar oturum çerezinin `Secure` özelliğini de açar. Backend'i halka açık erişime açmak gerekmez.
+## 🗄️ Data & Backups
 
-## Veri ve yedekleme
+- Database: `backend/data/portfolio.sqlite` (created on first run)
+- Uploaded media: `backend/data/media/` (original + WebP variants)
+- To back up: stop services, copy the entire `backend/data/` directory
 
-İlk çalıştırmada `backend/data/portfolio.sqlite` oluşturulur ve kaynakta bulunan altı portfolyo projesi yalnızca bir kez eklenir. Silinen bir proje sonraki açılışta kendiliğinden geri gelmez.
+## 🛠️ Tech Stack
 
-Yüklenen resimler `backend/data/media` içinde tutulur. Orijinal dosya, 1800 piksele kadar ana WebP ve 600 piksele kadar küçük WebP saklanır. Galeri resmi yalnızca bir yayınlanmış projede kullanılıyorsa ziyaretçilere açılır; taslak ve çöp kutusu resimleri admin oturumu gerektirir. Orijinaller HTTP üzerinden sunulmaz. Silme işlemi görselleri diskte korur.
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 15 (App Router) |
+| UI | React, Tailwind CSS v4, shadcn/ui |
+| Language | JavaScript / JSX |
+| Backend | Node.js (custom HTTP server) |
+| Database | SQLite |
+| Image Processing | Sharp |
+| Validation | Zod |
+| Font | Outfit (Google Fonts) |
 
-Yedek almak için iki servisi durdurun ve **tüm `backend/data` klasörünü** kopyalayın. Geri yüklemek için servisler kapalıyken bu klasörü yedeğiyle değiştirin. SQLite `-wal` / `-shm` dosyaları varsa onları da dahil edin. Özel `DATA_DIR` kullanıyorsanız o dizini yedekleyin. Bu dizin admin hesabı, başvurular ve oturumlar da içerir; herkese açık bir klasöre koymayın.
+## 📄 License
 
-Paket, önceki canlı sistemin D1/R2 verilerinin yedeği değildir. Mevcut kaynak kodundaki görseller ve başlangıç projeleri dahildir; canlı sistemde sonradan kaydedilen projeler, başvurular ve yüklemeler bu ZIP'e aktarılmış sayılmamalıdır. Canlı veri aktarımı için önceki sistemden ayrıca veri/dosya dışa aktarımı gerekir.
-
-## Yönetim
-
-- Proje oluşturma, taslak/yayın, ana sayfada görünme ve hero adayı seçimi.
-- Proje sırası: sürükleme veya yukarı/aşağı düğmeleri; sıra ayrı kaydedilir.
-- Fotoğraf sırası: sürükleme veya oklar; ilk görsel kapak olur.
-- Silme: onay ardından çöp kutusu; geri yükleme her zaman **taslak** oluşturur.
-- Kayıt sürümü: başka sekmede değişen proje veya ayar için 409 çakışma mesajı. Yenilemeden eski kayıt yeni kaydı ezemez.
-- Kaydedilmemiş değişiklik uyarısı; ayarlar yüklenmeden kaydetme kapalıdır.
-- Yükleme kısmen başarısız olursa başarılı görseller açık taslakta kalır; korumak için projeyi kaydedin.
-- Şifre değiştirmek için aynı e-postayla `npm run admin:setup` çalıştırın. O hesabın mevcut oturumları iptal edilir.
-
-## Tasarım ve diller
-
-Mevcut portfolyo tasarımı, koyu tema geçişi, hover efektleri, galeri yakınlaştırma/sürükleme, dünya yakınlaştırma/döndürme kontrolleri korunmuştur. Türkçe, İspanyolca, Almanca, Fransızca, Norveççe Bokmål ve İtalyanca seçenekleri İngilizceyle birlikte bulunur. Kullanıcının yazdığı özel proje içeriği otomatik çevrilmez; dil seçimi cihaz çereziyle saklanır. Her dil için ayrı SEO URL'si bu teslimde eklenmemiştir.
-
-## Doğrulama ve kapsam
-
-`verification/SONUCLAR.md` uygulanan geliştirmeleri, gerçek test sonuçlarını ve doğrulama sınırlarını açıklar. Bu paket bağımsız Node.js dağıtımıdır; eski canlı adrese otomatik olarak yayınlanmamıştır.
+[MIT](LICENSE) © Kerem Can Kuru

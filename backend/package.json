@@ -1,0 +1,16 @@
+{
+  "name": "@krm/backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "node --test tests/*.test.js",
+    "admin:setup": "node src/setup-admin.js"
+  },
+  "dependencies": {
+    "zod": "^3.25.76",
+    "sharp": "0.35.4"
+  }
+}
