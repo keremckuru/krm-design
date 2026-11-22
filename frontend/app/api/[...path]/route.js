@@ -3,7 +3,10 @@ export const dynamic = 'force-dynamic';
 import { revalidatePath } from 'next/cache';
 async function proxy(request, { params }) {
     const { path } = await params;
-    const base = process.env.BACKEND_URL || 'http://127.0.0.1:4000';
+    const rawBase = process.env.BACKEND_URL;
+    const base = (rawBase && (rawBase.startsWith('http://') || rawBase.startsWith('https://')))
+        ? rawBase.replace(/\/+$/, '')
+        : 'http://127.0.0.1:4000';
     if (path[0] === 'debug-me') return Response.json({ backend: base });
     const target = new URL('/api/' + path.map(encodeURIComponent).join('/'), base); target.search = new URL(request.url).search;
     const headers = new Headers(); for (const key of ['content-type', 'cookie', 'origin']) { const value = request.headers.get(key); if (value) headers.set(key, value); }
