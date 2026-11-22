@@ -20,7 +20,7 @@
 
 - **🌐 Interactive 3D World** — Geographically explore football & design projects on a zoomable, draggable 3D globe.
 - **⚡ Physics & Motion** — Matter/canvas-driven interactive physical particles, custom cursor, and retro elements.
-- **🖼️ Advanced Gallery System** — Mobile swipeable Tinder-style card stacks and responsive desktop galleries with fluid zoom & inspect.
+- **🖼️ Advanced Gallery System** — Mobile swipeable card stacks and responsive desktop galleries with fluid zoom & inspect.
 - **🎨 Dynamic Pantone Theming** — Theme shifts reflecting Pantone Color of the Year palettes with dark/light mode toggle.
 - **🌍 7 Built-in Languages** — English, Turkish, Spanish, German, French, Norwegian Bokmål, and Italian.
 - **🛡️ Secure Admin CMS** — Full project management with drag-and-drop ordering, optimistic revision concurrency control, automatic Sharp WebP conversion (multi-res), draft/trash states, and honeypot-protected inquiry handling.
