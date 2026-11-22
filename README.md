@@ -1,8 +1,8 @@
 # KRM Design
 
-A multilingual portfolio & design studio built with **Next.js 15** (App Router) and a custom **Node.js** backend.
+A multilingual portfolio & design studio built with **Next.js** (App Router) and a custom **Node.js** backend.
 
-🌐 **Live:** [krmdesign.studio](https://krmdesign.studio)
+🌐 **Live:** [krmdesign.vercel.app](https://krmdesign.vercel.app)
 
 ---
 
