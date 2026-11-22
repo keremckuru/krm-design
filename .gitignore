@@ -1,16 +1,16 @@
 # Dependencies
 node_modules/
 
-# Next.js build
+# Next.js build output
 .next/
 out/
 
-# Environment files
+# Environment variables
 .env
 .env.*
 !.env.example
 
-# Data & database
+# Database & uploaded media
 backend/data/
 
 # Vercel
@@ -20,20 +20,22 @@ backend/data/
 *.log
 npm-debug.log*
 
-# OS files
+# OS generated files
 .DS_Store
 Thumbs.db
+Desktop.ini
 
-# IDE
+# IDE & editors
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# Share assets (large files)
+# Screenshots & assets not part of source
 share/
 
-# Verification logs
+# Build verification logs
 verification/
 
 # AI agent config (auto-generated)
