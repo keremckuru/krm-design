@@ -89,27 +89,14 @@ npm ci
 # 3. Create your secure admin account (hidden prompt)
 npm run admin:setup
 
-# 4. Build and start production servers
-npm run build
-npm start
-```
-
-Visit:
-- **Frontend:** [http://localhost:3000](http://localhost:3000)
-- **Admin Panel:** [http://localhost:3000/admin](http://localhost:3000/admin)
-
-### Development
-
-```bash
-# Starts both frontend and backend concurrently with hot reloading:
+# 4. Start local development server
 npm run dev
 ```
 
-Or run separately:
-```bash
-npm run dev --workspace backend
-npm run dev --workspace frontend
-```
+The app will start locally at port `3000`.
+
+> [!TIP]
+> To view the live deployment without running it locally, visit **[krmdesign.vercel.app](https://krmdesign.vercel.app)**.
 
 ---
 
